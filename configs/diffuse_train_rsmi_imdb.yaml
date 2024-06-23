@@ -1,0 +1,60 @@
+# [ Experiment ]
+experiment:
+  output_dir: ./experiments/imdb/diffuse_rsmi
+  seed: 1000
+  max_epoch: 100
+  device: cuda
+  enable_amp: true
+
+# [ Data ]
+data:
+  data_dir: ./data/imdb
+  train: train.txt
+  dev: dev.txt
+  test: test.txt
+  batch_size: 64
+  eval_batch_size: 1
+  num_label: 2
+  max_seq_len: 256
+
+
+# [ Model ]
+model:
+  type: diffuse2rsmiensemavg
+  num_train_timesteps: 10
+  cls_path: ./checkpoints/rsmi_bert_imdb_9
+  pretrained_model: bert-base-uncased
+  activ_func: gelu
+  dropout: 0.1
+  output_dim: ${..data.num_label}
+  loss_fn: ce
+  task: multiclass
+  diffusion_layer: 1
+  # rsmi params
+  single_layer: false
+  nth_layers: 4
+  noise_eps: 0.3
+  pooler_output: false
+  model: bert
+  custom_forward: true
+  pad_idx: 0
+  mask_idx: 103
+  multi_mask: 3
+  vote_type: avg
+  binom_p: false
+  alpha_p: 0.98
+  binom_ensemble: 50
+  num_ensemble: 5
+  w_gn: 1.0
+  binom_n_eval: 5
+
+# [ Optimizer ]
+optimizer:
+  name: AdamW
+  lr: 2e-5
+  weight_decay: 1e-06
+  grad_clip: 1
+  eps: 1e-08
+  scheduler:
+    name: cosine_with_restarts
+    warmup_steps_or_ratio: 0.02

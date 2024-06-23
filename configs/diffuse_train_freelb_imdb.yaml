@@ -1,0 +1,42 @@
+# [ Experiment ]
+experiment:
+  output_dir: ./experiments/imdb/diffuse_freelb
+  seed: 1000
+  max_epoch: 100
+  device: cuda
+  enable_amp: true
+
+# [ Data ]
+data:
+  data_dir: ./data/imdb
+  train: train.txt
+  dev: dev.txt
+  test: test.txt
+  batch_size: 64
+  eval_batch_size: 1
+  num_label: 2
+  max_seq_len: 256
+
+# [ Model ]
+model:
+  type: diffuse2ensemavg
+  num_train_timesteps: 10
+  cls_path: ./checkpoints/freelb-len256-epo10-batch64-advstep10-advlr0.03-norm0.0-best.pth
+  pretrained_model: bert-base-uncased
+  activ_func: gelu
+  dropout: 0.3
+  output_dim: ${..data.num_label}
+  loss_fn: ce
+  task: multiclass
+  diffusion_layer: 1
+
+# [ Optimizer ]
+optimizer:
+  name: AdamW
+  lr: 2e-5
+  weight_decay: 1e-06
+  grad_clip: 1
+  eps: 1e-08
+  scheduler:
+    name: cosine_with_restarts
+    warmup_steps_or_ratio: 0.02

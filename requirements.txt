@@ -1,0 +1,13 @@
+omegaconf==2.3.0
+transformers==4.29.2
+torch==2.0.1
+tensorflow==2.13.0
+tensorflow-hub==0.14.0
+diffusers==0.29.0
+pandas==2.2.2
+scipy==1.10.1
+overrides==7.7.0
+scikit-learn==1.5.0
+lru-dict==1.2.0
+nltk==3.8.1
+textattack==0.3.10
