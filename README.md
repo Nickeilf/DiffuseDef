@@ -42,4 +42,14 @@ python eval.py -c configs/diffuse_train_freelb_agnews.yaml -d ./experiments/agne
 ```
 
 ## Citation
-TBD
+```
+@misc{li2024diffusedefimprovedrobustnessadversarial,
+      title={DiffuseDef: Improved Robustness to Adversarial Attacks}, 
+      author={Zhenhao Li and Marek Rei and Lucia Specia},
+      year={2024},
+      eprint={2407.00248},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2407.00248}, 
+}
+```
